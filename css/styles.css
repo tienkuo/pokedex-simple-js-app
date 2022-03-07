@@ -1,0 +1,34 @@
+body {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 16px; /* Sets the font size to 16px */
+  line-height: 1.6;/* Sets the line-height to 1.6 */
+  margin: 10px;
+}
+
+#app-logo {
+  width: 200px;
+  height: 50px;
+}
+
+p:hover, p:focus {
+  font-size: 24px;
+  color: #7AA3A3;
+}
+
+/* defines up to which screen size the rule should be applied,
+overwrite rules above */
+@media all and (max-width: 400px) {
+  body {
+    font-size: 12px;
+  }
+
+  #app-logo {
+    width: 100px;
+    height: 25px;
+  }
+
+  p:hover, p:focus {
+    font-size: 16px;
+  }
+}
