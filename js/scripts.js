@@ -23,3 +23,13 @@ let pokemonList = [
     types: ['water', 'poison']
   }
 ];
+
+
+for (let i=0; i < pokemonList.length; i++) {
+  let pokeIndex = pokemonList[i].name + ' (height: ' + pokemonList[i].height
+  if (pokemonList[i].height > 5) {
+    document.write('<p>' + pokeIndex +') - Wow, that\'s big!</p>');
+  }else{
+    document.write('<p>' + pokeIndex +')</p>');
+  }
+}
