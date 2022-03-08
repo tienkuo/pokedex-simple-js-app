@@ -26,7 +26,7 @@ let pokemonList = [
 
 
 for (let i=0; i < pokemonList.length; i++) {
-  const pokeIndex = `${pokemonList[i].name} (height: ${pokemonList[i].height});`
+  const pokeIndex = `${pokemonList[i].name} (height: ${pokemonList[i].height})`;
   if (pokemonList[i].height > 5) {
     document.write('<p>' + pokeIndex + ' - Wow, that\'s big!</p>');
   }else{
