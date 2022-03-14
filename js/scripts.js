@@ -25,9 +25,10 @@ let pokemonRepository = (function() {
       types: ['water', 'poison']
     }
   ];
-
+//public function
   function add(pokemon) {
-    if (typeof pokemon === 'object'){
+    if ((typeof pokemon === 'object') &&
+    (Object.keys(pokemon).includes("name","height","types"))){
       pokemonList.push(pokemon);
     }
   }
