@@ -30,6 +30,8 @@ let pokemonRepository = (function() {
     if ((typeof pokemon === 'object') &&
     (Object.keys(pokemon).includes("name","height","types"))){
       pokemonList.push(pokemon);
+    } else {
+      console.log("pokemon is not correct");
     }
   }
 
@@ -41,28 +43,43 @@ let pokemonRepository = (function() {
     return pokemonList;
   }
 
+  function addListItem(pokemon) {
+    let pokemonList = document.querySelector('.pokemon-list');
+    let pokemonListItem = document.createElement('li');
+    let button = document.createElement('button');
+    button.innerText = pokemon.name;
+    button.classList.add('button-pokemon'); //add class name to button
+    pokemonRepository.ifPokemonSelected(button,pokemon); //Invoke the function to add event listener
+    pokemonListItem.appendChild(button);
+    pokemonList.appendChild(pokemonListItem);
+  }
+
+  function showDetails(pokemon) {
+    console.log(pokemon);
+  }
+
+  function ifPokemonSelected(button,pokemon) {
+    //add event listener to the pokemon button
+    button.addEventListener('click', function(event) {
+      //invoke the showdetails function once the button is clicked
+      pokemonRepository.showDetails(pokemon);
+  });
+  }
+
   return {
     add: add,
     filter: filter,
-    getAll: getAll
+    getAll: getAll,
+    addListItem: addListItem,
+    showDetails: showDetails,
+    ifPokemonSelected: ifPokemonSelected
   };
 })();
 
+//add one pokemon
+// pokemonRepository.add({ name: "Pikachu", height: 0.3, types: ["electric"] });
 
 //updated forEach loop
 pokemonRepository.getAll().forEach(function(pokemon){
-  const pokeIndex = `${pokemon.name} (height: ${pokemon.height})`;
-  if (pokemon.height > 5) {
-    document.write('<p>' + pokeIndex + ' - Wow, that\'s big!</p>');
-  }else{
-    document.write('<p>' + pokeIndex + '</p>');
-  }
-})
-
-//test to add a pokemon that is not an object
-// pokemonRepository.add("bird");
-// console.log(pokemonRepository.getAll())
-//test to add a pokemon that is a object
-// pokemonRepository.add({name: 'Blastoise', height: 1.6, types:'water'});
-// console.log(pokemonRepository.getAll())
-// console.log(pokemonRepository.filter('Dialga'))
+  pokemonRepository.addListItem(pokemon);
+});
