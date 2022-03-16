@@ -49,7 +49,7 @@ let pokemonRepository = (function() {
     let button = document.createElement('button');
     button.innerText = pokemon.name;
     button.classList.add('button-pokemon'); //add class name to button
-    pokemonRepository.ifPokemonSelected(button,pokemon); //Invoke the function to add event listener
+    pokemonRepository.handleButtonClick(button,pokemon); //Invoke the function to add event listener
     pokemonListItem.appendChild(button);
     pokemonList.appendChild(pokemonListItem);
   }
@@ -58,7 +58,7 @@ let pokemonRepository = (function() {
     console.log(pokemon);
   }
 
-  function ifPokemonSelected(button,pokemon) {
+  function handleButtonClick(button,pokemon) {
     //add event listener to the pokemon button
     button.addEventListener('click', function(event) {
       //invoke the showdetails function once the button is clicked
@@ -72,7 +72,7 @@ let pokemonRepository = (function() {
     getAll: getAll,
     addListItem: addListItem,
     showDetails: showDetails,
-    ifPokemonSelected: ifPokemonSelected
+    handleButtonClick: handleButtonClick
   };
 })();
 
