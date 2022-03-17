@@ -13,10 +13,21 @@
   <body>
     <header>
       <img src="img/pokedex-logo.png" alt="app-pokedex-logo" id="app-logo">
-      <ul class="pokemon-list">
 
-      </ul>
     </header>
+    <main>
+      <div class="">
+        <ul class="pokemon-list">
+
+        </ul>
+      </div>
+      <div id="loading_message">
+        <p>Loading the list of Pokemons...</p>
+        <img src="img/Ajax-loader.gif" alt="loading gif">
+      </div>
+    </main>
+    <script src="js/promise-polyfill.js"></script>
+    <script src="js/fetch-polyfill.js"></script>
     <script src="js/scripts.js"></script>
   </body>
 </html>
