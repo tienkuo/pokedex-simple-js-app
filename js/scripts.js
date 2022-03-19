@@ -1,7 +1,8 @@
 //IIFE
 let pokemonRepository = (function() {
   let pokemonList = [];
-  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/';
+  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=20'; //limit to 20 to reduce loading time
+  let modalContainer = document.querySelector('#modal-container');
 
 //public function
   function add(pokemon) {
@@ -35,8 +36,61 @@ let pokemonRepository = (function() {
   function showDetails(pokemon) {
     loadDetails(pokemon).then(function () {
       console.log(pokemon);
+      showModal(pokemon.name, pokemon.height, pokemon.imgUrl);
     });
   }
+
+  function showModal(name, height, imgUrl) {
+    modalContainer.innerHTML = ''; //clear all existing modal content
+    let modal = document.createElement('div');
+    modal.classList.add('modal');
+
+    //add new modal content: modal-close button, h1, p, img
+    let closeButtonElement = document.createElement('button');
+    closeButtonElement.classList.add('modal-close');
+    closeButtonElement.innerText = 'X';
+    closeButtonElement.addEventListener('click', hideModal);
+
+    let titleElement = document.createElement('h1');
+    titleElement.innerText = name;
+
+    let contentElement = document.createElement('p');
+    contentElement.innerText = "height: " + height;
+    let imgElement = document.createElement('img');
+    imgElement.src = imgUrl;
+
+    //append element to parent
+    modal.appendChild(closeButtonElement);
+    modal.appendChild(titleElement);
+    modal.appendChild(contentElement);
+    modal.appendChild(imgElement);
+    modalContainer.appendChild(modal);
+    //add className to modalContainer so styles can apply
+    modalContainer.classList.add('is-visible');
+  }
+
+  //define a hideModal function to close modal
+  function hideModal() {
+    modalContainer.classList.remove('is-visible');
+  }
+
+  //beyond hideModal function, we also want to close modal when the escape key is pressed
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modalContainer.classList.contains('is-visible')) {
+      hideModal();
+    }
+  });
+
+  //also when users click anywhere inside the modal-container,
+  //except the modal (i.e.close when click outside the modal)
+  modalContainer.addEventListener('click', (e) => {
+    // Since this is also triggered when clicking INSIDE the modal
+    // We only want to close if the user clicks directly on the overlay
+    let target = e.target;
+    if (target === modalContainer) {
+      hideModal();
+    }
+  });
 
   function handleButtonClick(button,pokemon) {
     //add event listener to the pokemon button
@@ -53,7 +107,7 @@ let pokemonRepository = (function() {
     }).then(function (json) {
       json.results.forEach(function(item) {
         let pokemon = {
-          name: item.name,
+          name: capitalizeFirstLetter(item.name),
           detailsUrl: item.url
         };
         add(pokemon);
@@ -85,13 +139,19 @@ let pokemonRepository = (function() {
 
   function showLoadingMessage() {
     const loadingMessage = document.getElementById('loading_message');
-    loadingMessage.removeAttribute('style', 'display: none');
+    loadingMessage.removeAttribute('style', 'display:none');
   }
 
   function hideLoadingMessage() {
     const loadingMessage = document.getElementById('loading_message');
-    loadingMessage.setAttribute('style', 'display: none');
+    loadingMessage.setAttribute('style', 'display:none');
   }
+
+  //function to capitalize first letter of e.g. pokemon name
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
 
   return {
     add: add,
