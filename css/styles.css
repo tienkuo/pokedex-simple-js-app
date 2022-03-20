@@ -10,6 +10,7 @@ body {
 #app-logo {
   width: 200px;
   height: 50px;
+  padding-left: 40px;
 }
 
 #loading_message {
