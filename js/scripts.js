@@ -1,8 +1,7 @@
 //IIFE
 let pokemonRepository = (function() {
   let pokemonList = [];
-  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=20'; //limit to 20 to reduce loading time
-  let modalContainer = document.querySelector('#modal-container');
+  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/'; //limit to 20 to reduce loading time
 
 //public function
   function add(pokemon) {
@@ -24,15 +23,18 @@ let pokemonRepository = (function() {
 
   function addListItem(pokemon) {
     let pokemonList = document.querySelector('.pokemon-list');
-    let pokemonListItem = document.createElement('li');
+    let pokemonListItem = document.createElement('div');
+    pokemonListItem.classList.add('group-list-item'); //add bootstrap class
     let button = document.createElement('button');
     button.innerText = pokemon.name;
-    button.classList.add('button-pokemon'); //add class name to button
+    button.classList.add('button-pokemon', 'btn'); //add class name to button
+    button.setAttribute('data-toggle', 'modal');
+    button.setAttribute('data-target', '#pokemonModal');
     pokemonRepository.handleButtonClick(button,pokemon); //Invoke the function to add event listener
     pokemonListItem.appendChild(button);
     pokemonList.appendChild(pokemonListItem);
   }
-
+//after click on pokemon button,load the data of pokemon from server
   function showDetails(pokemon) {
     loadDetails(pokemon).then(function () {
       console.log(pokemon);
@@ -41,56 +43,26 @@ let pokemonRepository = (function() {
   }
 
   function showModal(name, height, imgUrl) {
-    modalContainer.innerHTML = ''; //clear all existing modal content
-    let modal = document.createElement('div');
-    modal.classList.add('modal');
 
     //add new modal content: modal-close button, h1, p, img
-    let closeButtonElement = document.createElement('button');
-    closeButtonElement.classList.add('modal-close');
-    closeButtonElement.innerText = 'X';
-    closeButtonElement.addEventListener('click', hideModal);
+    let modalTitle = document.querySelector('.modal-title');
+    let modalBody = document.querySelector('.modal-body');
 
-    let titleElement = document.createElement('h1');
-    titleElement.innerText = name;
+    modalTitle.empty();
+    modalBody.empty();
+
+    modalTitle.innerText = name;
 
     let contentElement = document.createElement('p');
     contentElement.innerText = "height: " + height;
     let imgElement = document.createElement('img');
     imgElement.src = imgUrl;
 
-    //append element to parent
-    modal.appendChild(closeButtonElement);
-    modal.appendChild(titleElement);
-    modal.appendChild(contentElement);
-    modal.appendChild(imgElement);
-    modalContainer.appendChild(modal);
+    //append element to parent-modalBody
+    modalBody.appendChild(contentElement);
+    modalBody.appendChild(imgElement);
     //add className to modalContainer so styles can apply
-    modalContainer.classList.add('is-visible');
   }
-
-  //define a hideModal function to close modal
-  function hideModal() {
-    modalContainer.classList.remove('is-visible');
-  }
-
-  //beyond hideModal function, we also want to close modal when the escape key is pressed
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modalContainer.classList.contains('is-visible')) {
-      hideModal();
-    }
-  });
-
-  //also when users click anywhere inside the modal-container,
-  //except the modal (i.e.close when click outside the modal)
-  modalContainer.addEventListener('click', (e) => {
-    // Since this is also triggered when clicking INSIDE the modal
-    // We only want to close if the user clicks directly on the overlay
-    let target = e.target;
-    if (target === modalContainer) {
-      hideModal();
-    }
-  });
 
   function handleButtonClick(button,pokemon) {
     //add event listener to the pokemon button
@@ -99,7 +71,7 @@ let pokemonRepository = (function() {
       showDetails(pokemon);
     });
   }
-
+//load lost of pokemon from apiUrl
   function loadList() {
     showLoadingMessage();
     return fetch(apiUrl).then(function (response) {
@@ -119,7 +91,7 @@ let pokemonRepository = (function() {
       console.error(e);
     })
   }
-
+//load data of each pokemon when click on pokemon
   function loadDetails(item) {
     showLoadingMessage();
     let url = item.detailsUrl;
