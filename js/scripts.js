@@ -1,7 +1,7 @@
 //IIFE
 let pokemonRepository = (function() {
   let pokemonList = [];
-  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/'; //limit to 20 to reduce loading time
+  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
 
 //public function
   function add(pokemon) {
@@ -20,6 +20,63 @@ let pokemonRepository = (function() {
   function getAll() {
     return pokemonList;
   }
+
+  //sorts pokemon in alphabtical A-Z/Z-A order
+  function sort() {
+    let value = document.getElementById("options").value;
+    let listBeforeSort = [];
+
+    if (value === "A-Z") {
+      $('.pokemon-list').empty();
+      for (i = 0; i < pokemonList.length; i++) {
+        listBeforeSort.push(pokemonList[i]);
+      }
+      listBeforeSort.sort(dynamicSort('name'));
+      listBeforeSort.forEach((pokemon) => {
+        addListItem(pokemon);
+      });
+    } else if (value === "Z-A") {
+      $('.pokemon-list').empty();
+      for (i = 0; i < pokemonList.length; i++) {
+        listBeforeSort.push(pokemonList[i]);
+      }
+      listBeforeSort.sort(dynamicSort('name'));
+      let finalList = listBeforeSort.reverse();
+      finalList.forEach((pokemon) => {
+        addListItem(pokemon);
+      });
+    }
+  }
+
+  //alphabeical sorter
+ function dynamicSort(property) {
+   var sortOrder = 1;
+
+   if (property[0] === "-") {
+     sortOrder = -1;
+     property = property.substr(1);
+   }
+
+   return function (a, b) {
+     if (sortOrder == -1) {
+       return b[property].localeCompare(a[property]);
+     } else {
+       return a[property].localeCompare(b[property]);
+     }
+   };
+ }
+
+ function findPokemon(searchName) {
+   // Clear all the buttons on the page when user types in search box
+   $(".pokemon-list").empty();
+
+   // Add pokemon buttons for which the name includes the search string
+   pokemonList.forEach((pokemon) => {
+     if (capitalizeFirstLetter(pokemon.name).indexOf(capitalizeFirstLetter(searchName)) > -1) {
+       addListItem(pokemon);
+     }
+   });
+ }
 
   function addListItem(pokemon) {
     let pokemonList = document.querySelector('.pokemon-list');
@@ -48,8 +105,8 @@ let pokemonRepository = (function() {
     let modalTitle = document.querySelector('.modal-title');
     let modalBody = document.querySelector('.modal-body');
 
-    modalTitle.empty();
-    modalBody.empty();
+    modalTitle.innerHTML = "";
+    modalBody.innerHTML = "";
 
     modalTitle.innerText = name;
 
@@ -133,7 +190,9 @@ let pokemonRepository = (function() {
     showDetails: showDetails,
     handleButtonClick: handleButtonClick,
     loadList: loadList,
-    loadDetails: loadDetails
+    loadDetails: loadDetails,
+    findPokemon: findPokemon,
+    sort: sort
   };
 })();
 
