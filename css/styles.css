@@ -2,19 +2,25 @@ body {
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
   font-size: 16px; /* Sets the font size to 16px */
-  line-height: 1.6;/* Sets the line-height to 1.6 */
-  margin: 10px;
+  line-height: 1.6; /* Sets the line-height to 1.6 */
+
   text-align: center;
 }
 
 main {
-  padding-top: 30px;
+  margin-top: 100px;
 }
 
-#app-logo {
+/* .app-logo {
   width: 200px;
   height: 50px;
   padding-left: 40px;
+} */
+.app-title {
+  font-size: 30px;
+  color: #f6be00;
+  font-weight: 800;
+  margin-left: 20px;
 }
 
 #loading_message {
@@ -32,8 +38,6 @@ main {
   grid-template-columns: 1fr 1fr 1fr;
   text-align: center;
   grid-row-gap: 20px;
-  grid-column-gap: 100px;
-  margin: 30px 70px 70px 70px;
   align-items: center;
 }
 
@@ -43,7 +47,7 @@ main {
   border-radius: 2em;
   box-sizing: border-box;
   color: #fff;
-  width:100%;
+  width: 130px;
   margin: 5px;
   cursor: pointer;
   font-weight: 600;
@@ -52,7 +56,7 @@ main {
   position: relative;
   text-align: center;
   text-decoration: none;
-  transition: all .3s;
+  transition: all 0.3s;
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
@@ -62,19 +66,36 @@ main {
   background-color: initial;
   background-image: linear-gradient(#fff 0, rgba(255, 255, 255, 0) 100%);
   border-radius: 2em;
-  content: "";
+  content: '';
   height: 50%;
   left: 4%;
-  opacity: .5;
+  opacity: 0.5;
   position: absolute;
   top: 0;
-  transition: all .3s;
+  transition: all 0.3s;
   width: 92%;
 }
 
 .button-pokemon:hover {
   border-color: rgb(30, 66, 167);
-    background-color: rgb(255,233,0);
-    color: rgb(37, 39, 201);
+  background-color: rgb(255, 233, 0);
+  color: rgb(37, 39, 201);
+}
 
+.modal-title {
+  color: #c58900;
+}
+@media only screen and (max-width: 992px) {
+  main {
+    margin-top: 300px;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  main {
+    margin-top: 300px;
+  }
+  .pokemon-list {
+    grid-template-columns: 1fr;
+  }
 }
