@@ -1,52 +1,88 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Simple JS App</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wgt@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css" type="text/css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pokèdex App</title>
+    <link rel="pokeball icon" type="image/jpg" href="img/pokeball.ico" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wgt@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" type="text/css" />
   </head>
   <body>
     <header>
-
       <div class="container">
-    <!--Navigation bar-->
+        <!--Navigation bar-->
         <div class="row">
-          <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light justify-content-between">
+          <nav
+            class="navbar fixed-top navbar-expand-lg navbar-light bg-light justify-content-between"
+          >
             <div class="col">
               <a class="navbar-brand" href="index.html">
-                <img src="img/pokedex-logo.png" alt="app-pokedex-logo" id="app-logo">
+                <img
+                  src="img/pokeball.svg"
+                  alt="pokeball-icon"
+                  class="d-inline-block"
+                /><span class="app-title">Pokèdex</span>
               </a>
             </div>
-              <div class="col  navbar-collapse text-center justify-content-around" id="navbarToggler">
-
-                <div class="navbar-nav flex-lg-row">
-                    <a class="nav-item nav-link active px-3" href="#">Home <span class="sr-only">(current)</span></a>
-                    <a class="nav-item nav-link px-3" href="https://pokeapi.co/" target="blank">API</a>
-                    <a class="nav-item nav-link px-3" href="https://tienkuo.github.io/portfolio-website/" target="blank">Portfolio</a>
-                </div>
+            <div
+              class="col  navbar-collapse text-center justify-content-around"
+              id="navbarToggler"
+            >
+              <div class="navbar-nav flex-lg-row">
+                <a class="nav-item nav-link active px-3" href="#"
+                  >Home <span class="sr-only">(current)</span></a
+                >
+                <a
+                  class="nav-item nav-link px-3"
+                  href="https://pokeapi.co/"
+                  target="blank"
+                  >API</a
+                >
+                <a
+                  class="nav-item nav-link px-3"
+                  href="https://tienkuo.github.io/portfolio-website/"
+                  target="blank"
+                  >Portfolio</a
+                >
               </div>
+            </div>
 
+            <!-- Search Form within Navigation Bar -->
+            <div class="col">
+              <form class="form-inline">
+                <input
+                  class="form-control rounded"
+                  id="search-pokemon"
+                  type="search"
+                  placeholder="Search Pokemon..."
+                  aria-label="Search for a Pokemon"
+                  onkeyup="pokemonRepository.findPokemon(value)"
+                />
+              </form>
+            </div>
 
-
-          <!-- Search Form within Navigation Bar -->
-          <div class="col">
-                <form class="form-inline">
-                  <input class="form-control rounded" id="search-pokemon" type="search" placeholder="Search Pokemon..." aria-label="Search for a Pokemon"
-                  onkeyup="pokemonRepository.findPokemon(value)">
-                 </form>
-          </div>
-
-              <!--Sorting function-->
-          <div class="col">
-            <div>
+            <!--Sorting function-->
+            <div class="col">
+              <div>
                 <form class="sort-form">
                   <label for="sorting">Sort by: </label>
-                  <select name="sorting" id="options" onchange="pokemonRepository.sort()">
+                  <select
+                    name="sorting"
+                    id="options"
+                    onchange="pokemonRepository.sort()"
+                  >
                     <optgroup label="Alphabetically">
                       <option value="A-Z">A - Z</option>
                       <option value="Z-A">Z - A</option>
@@ -55,30 +91,39 @@
                 </form>
               </div>
             </div>
-            </nav>
-          </div>
+          </nav>
         </div>
-
+      </div>
     </header>
     <main>
       <!-- MODAL TO SHOW SINGLE POKEMON -->
-      <div class="container mt-5">
-        <div class="pokemon-list list-group list-unstyled w-100 just-content: center">
-        </div>
+      <div class="container page-container">
+        <div
+          class="pokemon-list list-group list-unstyled w-100 just-content: center"
+        ></div>
         <div class="modal fade" id="pokemonModal" tabindex="-1" role="dialog">
           <div class="modal-dialog" role="document">
             <div class="modal-content text-center">
               <div class="modal-header">
-                <h5 class="modal-title text-center"></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <h5 class="col-12 modal-title text-center"></h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div class="modal-body">
-
-              </div>
+              <div class="modal-body"></div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
               </div>
             </div>
           </div>
@@ -87,13 +132,25 @@
 
       <div id="loading_message">
         <p>Loading the list of Pokemons...</p>
-        <img src="img/Ajax-loader.gif" alt="loading gif">
+        <img src="img/Ajax-loader.gif" alt="loading gif" />
       </div>
     </main>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.js"
+      integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
     <script src="js/promise-polyfill.js"></script>
     <script src="js/fetch-polyfill.js"></script>
     <script src="js/scripts.js"></script>
