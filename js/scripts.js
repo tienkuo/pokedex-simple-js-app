@@ -21,7 +21,7 @@ let pokemonRepository = (function() {
     return pokemonList;
   }
 
-  //sorts pokemon in alphabtical A-Z/Z-A order
+  //sorts pokemon in alphabtical A-Z/Z-A order //jquery syntax
   function sort() {
     let value = document.getElementById("options").value;
     let listBeforeSort = [];
@@ -48,7 +48,7 @@ let pokemonRepository = (function() {
     }
   }
 
-  //alphabeical sorter
+  //alphabeical sorter //jquery syntax
  function dynamicSort(property) {
    var sortOrder = 1;
 
@@ -66,7 +66,7 @@ let pokemonRepository = (function() {
    };
  }
 
- function findPokemon(searchName) {
+ function findPokemon(searchName) { //jquery syntax
    // Clear all the buttons on the page when user types in search box
    $(".pokemon-list").empty();
 
