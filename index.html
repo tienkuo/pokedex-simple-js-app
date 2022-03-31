@@ -13,45 +13,51 @@
   <body>
     <header>
 
-
+      <div class="container">
     <!--Navigation bar-->
-      <div class="row">
-        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light justify-content-between">
-          <div class="container">
-            <a class="navbar-brand" href="index.html">
-              <img src="img/pokedex-logo.png" alt="app-pokedex-logo" id="app-logo">
-            </a>
-            <div class="collapse navbar-collapse text-center justify-content-around" id="navbarToggler">
+        <div class="row">
+          <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light justify-content-between">
+            <div class="col">
+              <a class="navbar-brand" href="index.html">
+                <img src="img/pokedex-logo.png" alt="app-pokedex-logo" id="app-logo">
+              </a>
+            </div>
+              <div class="col  navbar-collapse text-center justify-content-around" id="navbarToggler">
 
-              <div class="navbar-nav flex-lg-row">
-                  <a class="nav-item nav-link active px-3" href="#">Home <span class="sr-only">(current)</span></a>
-                  <a class="nav-item nav-link px-3" href="https://pokeapi.co/" target="blank">API</a>
-                  <a class="nav-item nav-link px-3" href="https://tienkuo.github.io/portfolio-website/" target="blank">Portfolio</a>
+                <div class="navbar-nav flex-lg-row">
+                    <a class="nav-item nav-link active px-3" href="#">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-item nav-link px-3" href="https://pokeapi.co/" target="blank">API</a>
+                    <a class="nav-item nav-link px-3" href="https://tienkuo.github.io/portfolio-website/" target="blank">Portfolio</a>
+                </div>
               </div>
+
+
+
           <!-- Search Form within Navigation Bar -->
-              <div class="p-2">
+          <div class="col">
                 <form class="form-inline">
                   <input class="form-control rounded" id="search-pokemon" type="search" placeholder="Search Pokemon..." aria-label="Search for a Pokemon"
                   onkeyup="pokemonRepository.findPokemon(value)">
                  </form>
-              </div>
-
-              <!--Sorting function within navigation Bar-->
-              <div>
-                  <form class="sort-form">
-                    <label for="sorting">Sort by: </label>
-                    <select name="sorting" id="options" onchange="pokemonRepository.sort()">                      
-                      <optgroup label="Alphabetically">
-                        <option value="A-Z">A - Z</option>
-                        <option value="Z-A">Z - A</option>
-                      </optgroup>
-                    </select>
-                  </form>
-                </div>
-            </div>
           </div>
-        </nav>
-      </div>
+
+              <!--Sorting function-->
+          <div class="col">
+            <div>
+                <form class="sort-form">
+                  <label for="sorting">Sort by: </label>
+                  <select name="sorting" id="options" onchange="pokemonRepository.sort()">
+                    <optgroup label="Alphabetically">
+                      <option value="A-Z">A - Z</option>
+                      <option value="Z-A">Z - A</option>
+                    </optgroup>
+                  </select>
+                </form>
+              </div>
+            </div>
+            </nav>
+          </div>
+        </div>
 
     </header>
     <main>
