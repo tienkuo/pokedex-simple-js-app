@@ -7,6 +7,21 @@ This project was part of the [Career Foundry Full Stack Web Development course](
 The Pokedex simple js app is a small web application with HTML, CSS, and JavaScript that loads data from an external API, enabling the viewing of data points in detail.
 
 **Features:**
+
 - Loads data from external API [(PokéAPI)](https://pokeapi.co/)
 - Displays a list of Pokémon
 - User action prompts a modal with details over Pokémon item.
+
+**Techniques involved:**
+The App
+
+- Loads data from an external API; for instance, the Pokémon API.
+- Shows loading indicators while loading data.
+- Displays a list of items loaded from that API after the page is loaded.
+- Enables the viewing of more details for a given list item (like a Pokémon) on demand, such as when clicking on a list item.
+- Uses CSS styling.
+- Formats the JavaScript code according to ESLint rules and via Prettier.
+- Involves at least one additional complex UI pattern, such as a modal, for details or touch interactions.
+- Allows searching for items (e.g., searching for Pokémon).
+- Must not throw any errors when being used.
+- Works in Chrome, Firefox, Safari, Edge, and Internet Explorer 11.
