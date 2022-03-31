@@ -13,7 +13,9 @@ The Pokedex simple js app is a small web application with HTML, CSS, and JavaScr
 - User action prompts a modal with details over Pokémon item.
 
 **Techniques involved:**
+<br/>
 The App
+<br/>
 
 - Loads data from an external API; for instance, the Pokémon API.
 - Shows loading indicators while loading data.
